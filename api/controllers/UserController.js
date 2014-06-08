@@ -22,12 +22,10 @@ var UserController = {
     },
 
     findAll: function(req, res){
-        res.json(User.find().done(function(err, users) { 
-                if(err) return res.send(500);
-    
-                console.log(users);
-            })
-        );
+        User.find().done(function(err, users) {
+            if(err) return res.send(err, 500);
+            return res.json(users);
+        });
     },
 
     findUser: function(req, res){
