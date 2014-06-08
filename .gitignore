@@ -39,6 +39,7 @@ nbproject
 .idea
 .sass-cache
 views/home/index.handlebars
+public/files/*
 
 
 ########################
