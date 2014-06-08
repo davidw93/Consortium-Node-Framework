@@ -46,6 +46,25 @@ var ClientController = {
         //Fall through to this if we don't get a company_id or company_name
         //given to us to use for the DB work.
         return res.json({"msg": "failure, invalid paramaters to function"});
+    },
+
+    findClient: function(req, res){
+        var clientID = req.param('id');
+        var company_name = req.param('company_name');
+        
+
+        if(clientID){
+            Client.findOne(clientID, function(err, client){
+        
+                //if client cannot be found then not found will be sent as a response
+                if(client === undefined) return res.json("message", "Not Found");
+                //if there was an error we pass through and return the error
+                if(err) return next(err);
+
+                //we fall to this if everything passes and it will return a json formatted client object
+                res.json(client);
+            });
+        }
     }
 };
 
