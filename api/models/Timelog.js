@@ -12,7 +12,7 @@ module.exports = {
   	
   	id: 'INTEGER',
   	user_id: 'INTEGER',
-  	time_recorded: 'TIME',
+  	time_recorded: 'DATETIME',
   	approved: 'BOOLEAN',
   	approved_by: 'INTEGER',
   	project_id: 'INTEGER',

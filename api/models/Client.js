@@ -6,14 +6,13 @@
  * @docs		:: http://sailsjs.org/#!documentation/models
  */
 
-module.exports = {
-
+var Client = {
+    autoPK: true,
 	attributes: {
-
-		id: 'INTEGER',
 		company_name: 'STRING',
 		website: 'STRING',
 		address: 'STRING'
 	}
-
 };
+
+module.exports = Client;
