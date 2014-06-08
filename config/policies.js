@@ -16,15 +16,15 @@ module.exports.policies = {
 
   // Default policy for all controllers and actions
   // (`true` allows public access) 
-  '*': true
+  '*': true,
 
   User: {
   	// Here is where we will put various policies and permissions for standard members
-  }
+  },
 
   BoardMember: {
   	'*': true
-  }
+  },
 
   /*
 	// Here's an example of adding some policies to a controller
