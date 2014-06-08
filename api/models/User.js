@@ -6,12 +6,8 @@
  * @docs		:: http://sailsjs.org/#!documentation/models
  */
 var User = {
-
- tableName: 'USERS',
- adapter: 'mysql-adapter',
- migrate: 'safe',
-
- attributes: {
+  autoPK: true,
+  attributes: {
   
   	fname: 'STRING',
   	lname: 'STRING',
