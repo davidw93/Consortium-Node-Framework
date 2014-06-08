@@ -22,13 +22,18 @@ var UserController = {
     },
 
     findAll: function(req, res){
-        User.findOne("where={'id':{'>': '0'}}", function(err, users){
-            res.json(users);
-        });
+        res.json(User.find().done(function(err, users) { 
+                if(err) return res.send(500);
+    
+                console.log(users);
+            })
+        );
     },
 
     findUser: function(req, res){
         var userID = req.param('id');
+        var userFName = req.param('fname');
+        var userLName = req.param('lname');
 
         if(userID){
             User.findOne(userID, function(err, user){
