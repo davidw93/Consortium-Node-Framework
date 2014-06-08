@@ -8,46 +8,113 @@
 
 var UserController = {
 
-
+    /*
+     *      -- ACCESSIBLE BY ALL --
+     *      createRegular(req, res):
+     *          Extracts user creation data from received request and creates a User
+     *          in the system with their details. This function only creates regular access level users.
+     */
     createRegular: function(req, res) {
-        //Get the data from the request. DRY Pattern.
+        //Get the data from the request. DRY principles.
         var data = UserController.getCreateVariables(req);
         UserController.create(data, 1, 1, res);
     },
 
+    /*
+     *      -- ACCESSIBLE BY ALL --
+     *      createBoardMember(req, res):
+     *          Extracts user creation data from received request and creates a User
+     *          in the system with their details. This function only creates board member access level users.
+     */
     createBoardMember: function(req, res) {
+        //Get the data from the request. DRY principles.
         var data = UserController.getCreateVariables(req);
         UserController.create(data, 1, 2, res);
     },
 
 
-    findAll: function(req, res){
+    /*
+     *      -- ACCESSIBLE BY ALL --
+     *      all(req, res):
+     *          Returns all users within the system.
+     */
+    all: function(req, res){
         User.find().done(function(err, users) {
             if(err) return res.send(err, 500);
             return res.json(users);
         });
     },
 
-    findUser: function(req, res){
+    /*
+     *      -- ACCESSIBLE BY ALL --
+     *      find(req, res):
+     *          if "id" is present:
+     *              Return user with specified ID
+     *          if "fname" and "lname" are present:
+     *              Return user with that specified first and last name
+     *          if only "fname" is present:
+     *              Return the first user that has that specified first name
+     *          if only "lname" is present:
+     *              Return the first user that has that specified last name
+     *
+     *          if no users are found then return a JSON error message.
+     */
+    find: function(req, res){
         var userID = req.param('id');
         var userFName = req.param('fname');
         var userLName = req.param('lname');
 
         if(userID){
             User.findOne(userID, function(err, user){
-        
-                //if user cannot be found then not found will be sent as a response
-                if(user === undefined) return res.json("message", "Not Found");
                 //if there was an error we pass through and return the error
-                if(err) return next(err);
+                if(err) return res.send(err, 500);
+
+                //if user cannot be found then not found will be sent as a response
+                if(user === undefined) return res.json({"msg":"Not Found"});
 
                 //we fall to this if everything passes and it will return a json formatted user object
-                res.json(user);
+                return res.json(user);
             });
         }
+
+        if(userFName && userLName) {
+            //Find the user using their first AND last name
+            User.findOne({
+                fname: userFName,
+                lname: userLName
+            }).done(function(err, user) {
+                if(err) return res.send(err, 500);
+                if(user == undefined) return res.json({"msg": "Not Found"});
+                return res.json(user);
+            });
+        } else if(userFName) {
+            //Find the user using only their first name
+            User.findOne({
+                fname: userFName
+            }).done(function(err, user) {
+                if(err) return res.send(err, 500);
+                if(user === undefined) return res.json({"msg": "Not Found"});
+                return res.json(user);
+            });
+        } else if(userLName) {
+            //Find the user using only their last name
+            User.findOne({
+                lname: userLName
+            }).done(function(err, user) {
+                if(err) return res.send(err, 500);
+                if(user === undefined) return res.json({"msg": "Not Found"});
+                return res.json(user);
+            });
+        }
+
     },
 
-    //Access blocked in policies -- ALL REQUESTS
+    /*
+     *      -- ACCESSIBLE BY NONE --
+     *      getCreateVariables(req):
+     *          Helper function to split out request parameters required for
+     *          user creation.
+     */
     getCreateVariables: function(req) {
         var returnData = {
             fname : req.param("fname"),
@@ -60,7 +127,12 @@ var UserController = {
         return returnData;
     },
 
-    //Access blocked in policies - ALL REQUESTS
+    /*
+     *      -- ACCESSIBLE BY NONE --
+     *      create(user_data, multiplier, accessLevel, res):
+     *          Create new user in system using specified user_data, multiplier,
+     *          and accessLevel. Write results of operation back to res object.
+     */
     create: function(user_data, multiplier, accessLevel, res){
         User.create({
             fname: user_data.fname,
