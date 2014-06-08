@@ -1,4 +1,10 @@
-//UserController.js
+/*
+ *      Script Name:    UserController.js
+ *      Status:         Partially Implemented
+ *      Access URL:     <prefix>/User/
+ *      Script Usage:
+ *          Script is for CRUD operations on Users within the system
+ */
 
 var UserController = {
 

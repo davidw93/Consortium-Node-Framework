@@ -1,4 +1,10 @@
-//ClientController.js
+/*
+ *      Script Name:    ClientController.js
+ *      Status:         Partially Implemented
+ *      Access URL:     <prefix>/Client/
+ *      Script Usage:
+ *          Script is for CRUD operations on Clients within the system
+ */
 
 var ClientController = {
     create: function(req, res) {
