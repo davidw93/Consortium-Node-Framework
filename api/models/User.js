@@ -28,6 +28,19 @@ var User = {
     }
   },
 
+  beforeCreate: function(values, cb) {
+      var bcrypt = require("bcrypt");
+      bcrypt.genSalt(10, function(err, salt) {
+          if(err) return cb(err);
+
+          bcrypt.hash(values.password, salt, function(err, hash) {
+              if(err) return cb(err);
+              values.password = hash;
+              cb();
+          });
+      });
+  },
+
 };
 
 module.exports = User;

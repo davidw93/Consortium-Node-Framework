@@ -16,10 +16,10 @@ var UserController = {
             fname: fname,
             lname: lname,
             DOB: "12/01/1992",
-            tele: "07807587773",
-            emailAddress: "daveycis@gmail.com",
+            pNumber: "07807587773",
+            email: "daveycis@gmail.com",
             multiplier: 10,
-            accessLevel: "BoardMember",
+            accessLevel: "2",
             password: "password"
         }).done(function(err, user){
             if(err) return res.send(err, 500); // err 500 with the error for debugging
