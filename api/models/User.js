@@ -2,8 +2,7 @@
  * User
  *
  * @module      :: Model
- * @description :: A short summary of how this model works and what it represents.
- * @docs		:: http://sailsjs.org/#!documentation/models
+ * @description :: Representation for Users within the system
  */
 var User = {
   autoPK: true,
@@ -12,21 +11,20 @@ var User = {
   	fname: 'STRING',
   	lname: 'STRING',
   	DOB: 'DATE',
-  	tele: {
-  		type: 'INTEGER',
-  		defaultsTo: '07123456789'
+  	pNumber: {
+  		type: 'STRING'
   	},
-  	emailAddress: {
+  	email: {
   		type: 'email',
   		required: true
   	},
   	multiplier: 'INTEGER',
-  	accessLevel: 'STRING',
+  	accessLevel: 'INTEGER',
   	password: {
     	type: 'string',
     	minLength: 6,
     	required: true,
-    	columnName: 'md5d_password'
+    	columnName: 'pass_hash'
     }
   },
 

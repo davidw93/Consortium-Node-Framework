@@ -2,19 +2,17 @@
  * Project
  *
  * @module      :: Model
- * @description :: A short summary of how this model works and what it represents.
- * @docs		:: http://sailsjs.org/#!documentation/models
+ * @description :: Projects within the system relating to external clients
  */
 
-module.exports = {
-
-  attributes: {
-  	
-    id: 'INTEGER',
-    client_id: 'INTEGER',
-    price: 'FLOAT',
-    description: 'STRING',
-    notes: 'STRING'
-  }
-
+var Project = {
+    autoPK: true,
+    attributes: {
+        client_id: 'INTEGER',
+        price: 'FLOAT',
+        description: 'STRING',
+        notes: 'STRING'
+    }
 };
+
+module.exports = Project;
