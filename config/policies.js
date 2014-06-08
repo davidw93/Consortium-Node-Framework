@@ -18,6 +18,14 @@ module.exports.policies = {
   // (`true` allows public access) 
   '*': true
 
+  User: {
+  	// Here is where we will put various policies and permissions for standard members
+  }
+
+  BoardMember: {
+  	'*': true
+  }
+
   /*
 	// Here's an example of adding some policies to a controller
 	RabbitController: {
