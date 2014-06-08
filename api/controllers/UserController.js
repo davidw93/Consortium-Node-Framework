@@ -8,24 +8,18 @@
 
 var UserController = {
 
-    create: function(req, res){
-        var fname = req.param("fname");
-        var lname = req.param("lname");
 
-        User.create({
-            fname: fname,
-            lname: lname,
-            DOB: "12/01/1992",
-            pNumber: "07807587773",
-            email: "daveycis@gmail.com",
-            multiplier: 10,
-            accessLevel: "2",
-            password: "password"
-        }).done(function(err, user){
-            if(err) return res.send(err, 500); // err 500 with the error for debugging
-            return res.json(user); // return the user object as a JSON object
-        });
+    createRegular: function(req, res) {
+        //Get the data from the request. DRY Pattern.
+        var data = UserController.getCreateVariables(req);
+        UserController.create(data, 1, 1, res);
     },
+
+    createBoardMember: function(req, res) {
+        var data = UserController.getCreateVariables(req);
+        UserController.create(data, 1, 2, res);
+    },
+
 
     findAll: function(req, res){
         User.find().done(function(err, users) {
@@ -51,7 +45,38 @@ var UserController = {
                 res.json(user);
             });
         }
+    },
+
+    //Access blocked in policies -- ALL REQUESTS
+    getCreateVariables: function(req) {
+        var returnData = {
+            fname : req.param("fname"),
+            lname : req.param("lname"),
+            dob : req.param("dob"),
+            phone : req.param("phone_number"),
+            email : req.param("email"),
+            password : req.param("password")
+        };
+        return returnData;
+    },
+
+    //Access blocked in policies - ALL REQUESTS
+    create: function(user_data, multiplier, accessLevel, res){
+        User.create({
+            fname: user_data.fname,
+            lname: user_data.lname,
+            DOB: user_data.dob,
+            pNumber: user_data.phone,
+            email: user_data.email,
+            multiplier: multiplier,
+            accessLevel: accessLevel,
+            password: user_data.password
+        }).done(function(err, user){
+            if(err) return res.send(err, 500); // err 500 with the error for debugging
+            return res.json(user); // return the user object as a JSON object
+        });
     }
-}
+};
+
 
 module.exports = UserController;

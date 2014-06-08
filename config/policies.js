@@ -26,6 +26,12 @@ module.exports.policies = {
   	'*': true
   },
 
+  UserController: {
+      "*": true,
+      create: false,
+      getCreateVariables: false
+  },
+
   /*
 	// Here's an example of adding some policies to a controller
 	RabbitController: {
