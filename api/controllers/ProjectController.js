@@ -23,10 +23,8 @@ var ProjectController = {
 
 		// Validate clients existence.
 		Client.findOne(data.client_id).done(function(err, client){
-			if(err)
-			 return res.send(err, 500);
-			if(client === undefined)
-				return res.json({"Msg" : "Client does not exist"});
+			if(err) return res.send(err, 500);
+			if(client === undefined) return res.json({"Msg" : "Client does not exist"});
 		});
 
 		// Create new project with request data
@@ -36,8 +34,7 @@ var ProjectController = {
 			description: data.description,
 			notes: data.notes
 		}).done(function(err, project){
-			if(err) 
-				return res.send(err, 500);
+			if(err) return res.send(err, 500);
 			return res.json(project);
 		});
 	},
@@ -72,8 +69,7 @@ var ProjectController = {
 		Project.destroy({
 			id: id
 		}).exec(function(err){
-			if(err) 
-				return res.send(err, 500);
+			if(err) return res.send(err, 500);
 		});
 		return res.json({"msg": "Success"});
 	},
@@ -87,8 +83,7 @@ var ProjectController = {
 	all: function(req, res){
 
 		Project.find().exec(function(err, projects){
-			if(err) 
-				return res.send(err, 500);
+			if(err) return res.send(err, 500);
 			return res.json(projects);
 		});
 	},
@@ -102,10 +97,8 @@ var ProjectController = {
 	find: function(req, res){
 		var id = req.param("id");
 		Project.findOne(id).exec(function(err, project){
-			if(err) 
-				return res.send(err, 500);
-			if(project === undefined) 
-				return res.json({"Msg" : "Project does not exist"});
+			if(err) return res.send(err, 500);
+			if(project === undefined) return res.json({"Msg" : "Project does not exist"});
 			return res.json(project);
 		});
 	}

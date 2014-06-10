@@ -97,7 +97,7 @@ var ClientController = {
     findAll: function(req, res){
 
         Client.find().done(function(err, clients){
-            res.json(clients);
+            return res.json(clients);
         });
     },
 
