@@ -48,23 +48,28 @@ var ClientController = {
         return res.json({"msg": "failure, invalid paramaters to function"});
     },
 
-    findClient: function(req, res){
+    find: function(req, res){
         var clientID = req.param('id');
-        var company_name = req.param('company_name');
-        
+        var company_name = req.param('company_name');        
 
         if(clientID){
             Client.findOne(clientID, function(err, client){
-        
-                //if client cannot be found then not found will be sent as a response
-                if(client === undefined) return res.json("message", "Not Found");
-                //if there was an error we pass through and return the error
-                if(err) return next(err);
+                // If error detected, send back server error
+                // Then carry out check on client equalling null or whether its undefined for specified id
+                if(err) return res.send(err, 500);
+                if(client === undefined) return res.json("Client not found..");
 
-                //we fall to this if everything passes and it will return a json formatted client object
-                res.json(client);
+                // Client must exist - So return client
+                return res.json(client);
             });
         }
+    },
+
+    findAll: function(req, res){
+
+        Client.find().done(function(err, clients){
+            res.json(clients);
+        });
     }
 };
 
