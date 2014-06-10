@@ -99,6 +99,16 @@ var ClientController = {
         Client.find().done(function(err, clients){
             res.json(clients);
         });
+    },
+
+    doesExist: function(id){
+
+        Client.findOne(id, function(err, client){
+            if(err) return res.send(err, 500);
+            if(client === undefined) return res.json("Client Not Found");
+
+            return res.json(client);
+        });
     }
 };
 

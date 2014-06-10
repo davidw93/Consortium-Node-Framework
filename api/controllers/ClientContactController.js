@@ -1,10 +1,13 @@
 /*
  *      Script Name:    ClientContactController.js
- *      Status:         Not Implemented
+ *      Status:         Implemented
  *      Access URL:     <prefix>/ClientContact/
- *      Script Usage:
+ *      Author: 		Thundercatz
+ 		Script Usage:
  *          Script is for CRUD operations on Client Contacts within the system
- *		@Author: Thundercatz
+ *			Script will be used to return a link between User and Client, to enable
+ *			access to Client<->User correspondance
+ *		
  */
 
 var ClientContactController = {
@@ -71,6 +74,12 @@ var ClientContactController = {
 		}
 	},
 
+	/*
+	*		-- ACCESSIBLE BY ALL --
+	*		all(req, res)
+	*
+	*		This function will return all ClientContact's as JSON formatted Objects
+	*/
 	all: function(req, res){
 		ClientContact.find().done(function(err, contacts){
 			res.json(contacts);

@@ -147,6 +147,32 @@ var UserController = {
             if(err) return res.send(err, 500); // err 500 with the error for debugging
             return res.json(user); // return the user object as a JSON object
         });
+    },
+
+    increaseMultiplier: function(req, res){
+        var byAmount = req.param("by_amount");
+        var UID = req.param("user_id");
+
+        //Find user and increment their multiplier
+        User.findOne({
+            id: UID
+        }).done(function(err, user){
+            if(err) return res.send(err, 500);
+            if(user === undefined) return res.json({"MSG" : "Failure"});
+            
+            user.multiplier = user.multiplier + byAmount;
+            return res.json({"MSG" : "Success"});
+        });
+    },
+
+    doesExist: function(id){
+
+        User.findOne(id, function(err, user){
+            if(err) return res.send(err, 500);
+            if(user === undefined) return res.json("User Not Found");
+
+            return res.json(user);
+        });
     }
 };
 
