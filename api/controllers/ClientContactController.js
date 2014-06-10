@@ -30,7 +30,7 @@ var ClientContactController = {
 		// otherwise it passes validation 
 		Client.findOne(client_id).exec(function(err, client){
 			if(err) return res.send(err, 500);
-			if(client === undefined) res.send(err, 400);
+			if(client === undefined) return res.send(err, 400);
 		});
 		
 		// 2nd validation here with the user this time
@@ -51,6 +51,27 @@ var ClientContactController = {
 			if(err) return res.send(err, 500);
 			return res.json(clientcontact);
 		});
+
+        /* How I would do it -- DW
+            Client.findOne(client_id).done(function(err, client) {
+                if(err) return res.send(err, 500);
+                if(client === undefined) return res.send(err, 400);
+                //We can assume that the function executed correctly if we get to
+                //here.
+                User.findOne(contact_id).done(function(err, client) {
+                    if(err) return res.send(err, 500);
+                    if(user === undefined) return res.send(err, 400);
+                    //Again we've done everything successfully.
+                    ClientContact.create({
+                        client_id: client_id,
+                        contact_id: contact_id
+                    }).success(function(err, clientContact) {
+                        if(err) return res.send(err, 500);
+                        return res.json(clientContact);
+                    });
+                });
+            });
+        */
 	},
 
 	/*
