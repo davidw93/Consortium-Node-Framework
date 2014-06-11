@@ -23,8 +23,7 @@ var UserRatingController = {
         UserRating.findOne({
             project_id : data.project_id,
             user_id : data.user_id
-        }).done(function(err, userrating){
-            if(err) return res.json(err, 500);
+        }).done(function(userrating){
             if(userrating === undefined){
                 // UserRating does not exist so we can go ahead and create one
                 UserRatingController.createUtility(data, res);
