@@ -41,6 +41,11 @@ var UserController = {
     all: function(req, res){
         User.find().done(function(err, users) {
             if(err) return res.send(err, 500);
+
+            //Set up socket.io to broadcast changes of this model
+            User.subscribe(req.socket);
+            User.subscribe(req.socket, users);
+
             return res.json(users);
         });
     },
@@ -72,6 +77,9 @@ var UserController = {
                 //if user cannot be found then not found will be sent as a response
                 if(user === undefined) return res.json({"msg":"Not Found"});
 
+                //Set up socket.io to broadcast changes specifically for this user
+                User.subscribe(req.socket, user);
+
                 //we fall to this if everything passes and it will return a json formatted user object
                 return res.json(user);
             });
@@ -85,6 +93,10 @@ var UserController = {
             }).done(function(err, user) {
                 if(err) return res.send(err, 500);
                 if(user == undefined) return res.json({"msg": "Not Found"});
+
+                //Set up socket.io to broadcast changes specifically for this user
+                User.subscribe(req.socket, user);
+
                 return res.json(user);
             });
         } else if(userFName) {
@@ -94,6 +106,10 @@ var UserController = {
             }).done(function(err, user) {
                 if(err) return res.send(err, 500);
                 if(user === undefined) return res.json({"msg": "Not Found"});
+
+                //Set up socket.io to broadcast changes specifically for this user
+                User.subscribe(req.socket, user);
+
                 return res.json(user);
             });
         } else if(userLName) {
@@ -103,6 +119,10 @@ var UserController = {
             }).done(function(err, user) {
                 if(err) return res.send(err, 500);
                 if(user === undefined) return res.json({"msg": "Not Found"});
+
+                //Set up socket.io to broadcast changes specifically for this user
+                User.subscribe(req.socket, user);
+
                 return res.json(user);
             });
         }
