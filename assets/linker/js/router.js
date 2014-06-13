@@ -1,16 +1,16 @@
 ConsortiumNodeFramework.Router.map(function() {
-    this.resource('user', {path: '/test' });
+    this.resource('user', {path: '/testing' });
 });
 
 ConsortiumNodeFramework.UserRoute = Ember.Route.extend({
     activate: function() {
-        this.get('sails').subscribe('user/all');
+        this.get('sails').subscribe('user');
     },
     model: function() {
         return this.store.find('user');
     },
     deactivate: function() {
-        this.get('sails').unsubscribe('user/all');
+        this.get('sails').unsubscribe('user');
     },
     actions: {
         update: function(message) {

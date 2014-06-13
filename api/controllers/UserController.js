@@ -7,6 +7,9 @@
  */
 
 var UserController = {
+    index: function(req, res) {
+        UserController.all(req, res);
+    },
 
     /*
      *      -- ACCESSIBLE BY ALL --
