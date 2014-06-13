@@ -46,7 +46,13 @@ var UserController = {
             User.subscribe(req.socket);
             User.subscribe(req.socket, users);
 
-            return res.json(users);
+            var modelValues = {};
+            modelValues['user'] = new Array();
+            users.forEach(function(user) {
+                modelValues['user'].push(user.toJSON());
+            });
+            return res.json(modelValues);
+
         });
     },
 

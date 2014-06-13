@@ -21,6 +21,7 @@ ConsortiumNodeFramework.Sails = Ember.Object.extend({
 
     subscribe: function(channel) {
         this.channel = channel;
+        console.log(this.channel);
         if(this.socket) {
             this.socket.request('/api/v1/' + channel);
         }
