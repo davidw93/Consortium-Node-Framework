@@ -13,7 +13,8 @@
     "bcrypt": "0.7.8",
     "node-uuid": "1.4.1",
     "underscore": "1.6.0",
-    "underscore.string": "2.3.3"
+    "underscore.string": "2.3.3",
+    "grunt-ember-handlebars": "0.7.0"
   },
   "scripts": {
     "start": "node app.js",
