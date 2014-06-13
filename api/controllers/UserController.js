@@ -165,7 +165,12 @@ var UserController = {
             password: user_data.password
         }).done(function(err, user){
             if(err) return res.send(err, 500); // err 500 with the error for debugging
-            User.publishCreate(user);
+            User.publishCreate({
+                id: user.id,
+                fname: user.fname,
+                lname: user.lname,
+                email: user.email
+            });
             return res.json(user); // return the user object as a JSON object
         });
     },

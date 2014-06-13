@@ -18,7 +18,7 @@ module.exports.policies = {
   // (`true` allows public access) 
   '*': true,
 
-  User: {
+/*  User: {
   	// Here is where we will put various policies and permissions for standard members
   },
 
@@ -30,7 +30,7 @@ module.exports.policies = {
       "*": true,
       create: false,
       getCreateVariables: false
-  },
+  },*/
 
   /*
 	// Here's an example of adding some policies to a controller

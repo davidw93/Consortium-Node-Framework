@@ -1,10 +1,10 @@
 ConsortiumNodeFramework.Router.map(function() {
-    this.resource('exampleRoute', {path: '/exampleRoute' });
+    this.resource('user', {path: '/' });
 });
 
-ConsortiumNodeFramework.ExampleRoute = Ember.Route.extend({
+ConsortiumNodeFramework.UserRoute = Ember.Route.extend({
     activate: function() {
-        //this.get('sails').subscribe('example');
+        this.get('sails').subscribe('User/all');
     },
     model: function() {
         //return this.store.find('example');
