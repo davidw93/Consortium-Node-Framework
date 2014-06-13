@@ -165,6 +165,7 @@ var UserController = {
             password: user_data.password
         }).done(function(err, user){
             if(err) return res.send(err, 500); // err 500 with the error for debugging
+            User.publishCreate(user);
             return res.json(user); // return the user object as a JSON object
         });
     },
@@ -179,9 +180,16 @@ var UserController = {
         }).done(function(err, user){
             if(err) return res.send(err, 500);
             if(user === undefined) return res.json({"MSG" : "Failure"});
-            
+
             user.multiplier = user.multiplier + byAmount;
-            return res.json({"MSG" : "Success"});
+            user.save(function(err) {
+                if(err) return res.send(err, 500);
+
+                User.publishUpdate(user.id, {
+                    multiplier: user.multiplier
+                });
+                return res.json({"MSG" : "Success"});
+            });
         });
     },
 
